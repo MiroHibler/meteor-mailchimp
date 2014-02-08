@@ -1,3 +1,6 @@
+.DS_STORE
+
+### Node ###
 lib-cov
 *.seed
 *.log
@@ -13,4 +16,9 @@ results
 
 npm-debug.log
 node_modules
+
+## Private Scripts ##
+.npm
+.git
 .build*
+packages/
