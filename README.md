@@ -26,18 +26,24 @@ _meteor-mailchimp_ also exposes one template you can use out of the box: `MailCh
 
 Install using [Meteorite](https://github.com/oortcloud/meteorite) - Installer & smart package manager for Meteor:
 
-    mrt add mailchimp
+```sh
+$ mrt add mailchimp
+```
 
 Use in your template:
 
-	<div id="subscribeForm">
-		{{> MailChimpListSubscribe}}
-	</div>
+```html
+<div id="subscribeForm">
+	{{> MailChimpListSubscribe}}
+</div>
+```
 
 Put in your server's Meteor.startup():
 
-	MailChimpOptions.apiKey = "<Your MailChimp API Key>";
-	MailChimpOptions.listId = "<ID of your default mailing list>";
+```javascript
+MailChimpOptions.apiKey = "<Your MailChimp API Key>";
+MailChimpOptions.listId = "<ID of your default mailing list>";
+```
 
 This way you don't have to pass these parameters on each call.
 
@@ -58,7 +64,7 @@ All of the API categories and methods described in the MailChimp API v2.0 Docume
 Example:
 
 ```javascript
-if ( Meteor.isServer() ) {
+if ( Meteor.isServer ) {
 	// Set it once and reuse many times
 	MailChimpOptions.apiKey = "<Your MailChimp API Key>";
 	MailChimpOptions.listId = "<ID of your default mailing list>";
@@ -66,23 +72,23 @@ if ( Meteor.isServer() ) {
 
 try {
 	// You can as well pass different parameters on each call
-    var api = new MailChimp( /* apiKey, { version : '2.0' } */ );
+	var api = new MailChimp( /* apiKey, { version : '2.0' } */ );
 } catch ( error ) {
-    console.log( error.message );
+	console.log( error.message );
 }
 
 api.call( 'campaigns', 'list', { start: 0, limit: 25 }, function ( error, result ) {
-    if ( error )
-        console.log( error.message );
-    else
-        console.log( JSON.stringify( result ) ); // Do something with your data!
+	if ( error )
+		console.log( error.message );
+	else
+		console.log( JSON.stringify( result ) ); // Do something with your data!
 });
 
 api.call( 'campaigns', 'template-content', { cid: '/* CAMPAIGN ID */' }, function ( error, result ) {
-    if ( error )
-        console.log( error.message );
-    else
-        console.log( JSON.stringify( result ) ); // Do something with your data!
+	if ( error )
+		console.log( error.message );
+	else
+		console.log( JSON.stringify( result ) ); // Do something with your data!
 });
 ```
 
