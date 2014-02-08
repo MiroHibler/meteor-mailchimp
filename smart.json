@@ -1,0 +1,9 @@
+{
+	"name"			: "mailchimp",
+	"description"	: "A Meteor wrapper for the MailChimp API",
+	"homepage"		: "https://github.com/MiroHibler/meteor-mailchimp",
+	"author"		: "Miroslav Hibler (http://miro.hibler.me)",
+	"version"		: "0.1.0",
+	"git"			: "https://github.com/MiroHibler/meteor-mailchimp.git",
+	"packages"		: {}
+}
