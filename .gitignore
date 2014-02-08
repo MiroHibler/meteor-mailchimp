@@ -18,7 +18,7 @@ npm-debug.log
 node_modules
 
 ## Private Scripts ##
-.npm
+.npm*
 .git
 .build*
 packages/
