@@ -45,6 +45,13 @@ MailChimpOptions.apiKey = "<Your MailChimp API Key>";
 MailChimpOptions.listId = "<ID of your default mailing list>";
 ```
 
+Or in your clients's Meteor.startup():
+
+```javascript
+Session.set( 'MailChimpOptions.apiKey', "<Your MailChimp API Key>" );
+Session.set( 'MailChimpOptions.listId', "<ID of your default mailing list>" );
+```
+
 This way you don't have to pass these parameters on each call.
 
 
@@ -93,6 +100,9 @@ api.call( 'campaigns', 'template-content', { cid: '/* CAMPAIGN ID */' }, functio
 ```
 
 ## Changelog
+
+### v0.2.0
+ * On client, MailChimp.call() now reads API Key from session variable 'MailChimpOptions.apiKey' as well
 
 ### v0.1.0
  * Initial release
