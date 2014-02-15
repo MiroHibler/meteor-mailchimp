@@ -77,6 +77,12 @@ if ( Meteor.isServer ) {
 	MailChimpOptions.listId = "<ID of your default mailing list>";
 }
 
+if ( Meteor.isClient ) {
+	// Set it once and reuse many times
+	Session.set( 'MailChimpOptions.apiKey', "<Your MailChimp API Key>" );
+	Session.set( 'MailChimpOptions.listId', "<ID of your default mailing list>" );
+}
+
 try {
 	// You can as well pass different parameters on each call
 	var api = new MailChimp( /* apiKey, { version : '2.0' } */ );
