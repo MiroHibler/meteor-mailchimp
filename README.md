@@ -107,6 +107,9 @@ api.call( 'campaigns', 'template-content', { cid: '/* CAMPAIGN ID */' }, functio
 
 ## Changelog
 
+### v0.3.0
+ * Enable submit with return key
+
 ### v0.2.0
  * On client, MailChimp.call() now reads API Key from session variable 'MailChimpOptions.apiKey' as well
 
