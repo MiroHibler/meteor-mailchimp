@@ -38,21 +38,43 @@ Use in your template:
 </div>
 ```
 
-Put in your server's Meteor.startup():
+Put in your server's settings.js:
+
+```javascript
+{
+	"MailChimpOptions": {
+		"apiKey": "<Your MailChimp API Key>",
+		"listId": "<ID of your default mailing list>"
+	}
+}
+```
+
+and start your server with:
+
+```sh
+meteor --settings settings.js
+```
+or
+
+```sh
+mrt --settings settings.js
+```
+
+Parameters can be dynamically set as well:
+
+Server-side:
 
 ```javascript
 MailChimpOptions.apiKey = "<Your MailChimp API Key>";
 MailChimpOptions.listId = "<ID of your default mailing list>";
 ```
 
-Or in your clients's Meteor.startup():
+or client-side:
 
 ```javascript
 Session.set( 'MailChimpOptions.apiKey', "<Your MailChimp API Key>" );
 Session.set( 'MailChimpOptions.listId', "<ID of your default mailing list>" );
 ```
-
-This way you don't have to pass these parameters on each call.
 
 
 ## Usage
@@ -91,21 +113,27 @@ try {
 }
 
 api.call( 'campaigns', 'list', { start: 0, limit: 25 }, function ( error, result ) {
-	if ( error )
+	if ( error ) {
 		console.log( error.message );
-	else
+	} else {
 		console.log( JSON.stringify( result ) ); // Do something with your data!
+	}
 });
 
 api.call( 'campaigns', 'template-content', { cid: '/* CAMPAIGN ID */' }, function ( error, result ) {
-	if ( error )
+	if ( error ) {
 		console.log( error.message );
-	else
+	} else {
 		console.log( JSON.stringify( result ) ); // Do something with your data!
+	}
 });
 ```
 
 ## Changelog
+
+### v0.4.0
+ * Introduce settings.json for MailChimpOptions
+ * If already subscribed show different message then success message
 
 ### v0.3.0
  * Enable submit with return key
