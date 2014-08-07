@@ -60,23 +60,6 @@ or
 mrt --settings settings.js
 ```
 
-Parameters can be dynamically set as well:
-
-Server-side:
-
-```javascript
-MailChimpOptions.apiKey = "<Your MailChimp API Key>";
-MailChimpOptions.listId = "<ID of your default mailing list>";
-```
-
-or client-side:
-
-```javascript
-Session.set( 'MailChimpOptions.apiKey', "<Your MailChimp API Key>" );
-Session.set( 'MailChimpOptions.listId', "<ID of your default mailing list>" );
-```
-
-
 ## Usage
 
 _MailChimp_ takes two arguments. The first argument is your API key, which you can find in your MailChimp Account. The second argument is an options object which can contain the following option:
@@ -93,43 +76,49 @@ All of the API categories and methods described in the MailChimp API v2.0 Docume
 Example:
 
 ```javascript
-if ( Meteor.isServer ) {
-	// Set it once and reuse many times
-	MailChimpOptions.apiKey = "<Your MailChimp API Key>";
-	MailChimpOptions.listId = "<ID of your default mailing list>";
-}
-
-if ( Meteor.isClient ) {
-	// Set it once and reuse many times
-	Session.set( 'MailChimpOptions.apiKey', "<Your MailChimp API Key>" );
-	Session.set( 'MailChimpOptions.listId', "<ID of your default mailing list>" );
-}
-
 try {
 	// You can as well pass different parameters on each call
-	var api = new MailChimp( /* apiKey, { version : '2.0' } */ );
+	var mailchimp = new MailChimp( /* apiKey, { version : '2.0' } */ );
+
+	mailchimp.call(
+		'campaigns',
+		'list',
+		{
+			start: 0,
+			limit: 25
+		},
+		function ( error, result ) {
+			if ( error ) {
+				console.log( error.message );
+			} else {
+				console.log( JSON.stringify( result ) ); // Do something with your data!
+			}
+		}
+	);
+
+	mailchimp.call(
+		'campaigns',
+		'template-content',
+		{
+			cid: '/* CAMPAIGN ID */'
+		},
+		function ( error, result ) {
+			if ( error ) {
+				console.log( error.message );
+			} else {
+				console.log( JSON.stringify( result ) ); // Do something with your data!
+			}
+		}
+	);
 } catch ( error ) {
 	console.log( error.message );
 }
-
-api.call( 'campaigns', 'list', { start: 0, limit: 25 }, function ( error, result ) {
-	if ( error ) {
-		console.log( error.message );
-	} else {
-		console.log( JSON.stringify( result ) ); // Do something with your data!
-	}
-});
-
-api.call( 'campaigns', 'template-content', { cid: '/* CAMPAIGN ID */' }, function ( error, result ) {
-	if ( error ) {
-		console.log( error.message );
-	} else {
-		console.log( JSON.stringify( result ) ); // Do something with your data!
-	}
-});
 ```
 
 ## Changelog
+
+### v0.4.1
+ * Updated README.md to reflect changes in v0.4.0
 
 ### v0.4.0
  * Introduce settings.json for MailChimpOptions
