@@ -38,7 +38,7 @@ Use in your template:
 </div>
 ```
 
-Put in your server's settings.js:
+Put in your server's settings.json:
 
 ```javascript
 {
@@ -52,12 +52,12 @@ Put in your server's settings.js:
 and start your server with:
 
 ```sh
-meteor --settings settings.js
+meteor --settings settings.json
 ```
 or
 
 ```sh
-mrt --settings settings.js
+mrt --settings settings.json
 ```
 
 ## Usage
@@ -116,6 +116,9 @@ try {
 ```
 
 ## Changelog
+
+### v0.4.2
+ * Fixed typo in README.md
 
 ### v0.4.1
  * Updated README.md to reflect changes in v0.4.0
