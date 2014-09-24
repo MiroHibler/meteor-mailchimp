@@ -1,17 +1,20 @@
 Package.describe({
+	name: 'meteor-mailchimp',
+	version: '0.4.3',
 	summary: 'A Meteor wrapper for MailChimp API'
 });
 
-Package.on_use(function ( api, where ) {
+Package.onUse(function ( api, where ) {
 
 	api.use( ['templating'], 'client' );
 
-	api.add_files( 'lib/server/mailchimp.js', 'server' );
+	api.addFiles( 'lib/server/mailchimp.js', 'server' );
 
-	api.add_files( 'lib/client/views/subscribe/subscribe.html', 'client' );
-	api.add_files( 'lib/client/views/subscribe/subscribe.js', 'client' );
-
-	api.add_files( 'lib/client/mailchimp.js', 'client' );
+	api.addFiles([
+		'lib/client/views/subscribe/subscribe.html',
+		'lib/client/views/subscribe/subscribe.js',
+		'lib/client/mailchimp.js'
+	], 'client' );
 
 	if ( api.export ) {
 		api.export( 'MailChimpAPI', 'server' );
