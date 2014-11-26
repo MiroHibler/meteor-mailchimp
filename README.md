@@ -42,7 +42,7 @@ Put in your server's settings.json:
 
 ```javascript
 {
-	"public": {
+	"private": {
 		"MailChimp": {
 			"apiKey": "<Your MailChimp API Key>",
 			"listId": "<ID of your default mailing list>"
@@ -75,7 +75,7 @@ Example:
 ```javascript
 try {
 	// You can as well pass different parameters on each call
-	var mailChimp = new MailChimp( /* apiKey, { version : '2.0' } */ );
+	var mailChimp = new MailChimp( /* apiKey, { version: '2.0' } */ );
 
 	mailChimp.call(
 		'campaigns',
@@ -113,6 +113,9 @@ try {
 ```
 
 ## Changelog
+
+### v1.0.1
+ * README.md fix
 
 ### v1.0.0
  * Update to Meteor v1.0
