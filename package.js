@@ -1,10 +1,15 @@
 Package.describe({
-	name: 'meteor-mailchimp',
-	version: '0.4.3',
-	summary: 'A Meteor wrapper for MailChimp API'
+	name    : 'miro:mailchimp',
+	version : '1.0.0',
+	summary : 'A Meteor wrapper for MailChimp API',
+	homepage: "http://mailchimp.meteor.com",
+	author  : "Miroslav Hibler (http://miro.hibler.me)",
+	git     : 'https://github.com/MiroHibler/meteor-mailchimp.git'
 });
 
-Package.onUse(function ( api, where ) {
+Package.onUse( function ( api, where ) {
+
+	api.versionsFrom('METEOR@0.9.2');
 
 	api.use( ['templating'], 'client' );
 
@@ -17,9 +22,7 @@ Package.onUse(function ( api, where ) {
 	], 'client' );
 
 	if ( api.export ) {
-		api.export( 'MailChimpAPI', 'server' );
 		api.export( 'MailChimp', ['server', 'client'] );
-		api.export( 'MailChimpOptions', 'server' );
 	}
 });
 

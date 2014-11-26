@@ -24,10 +24,10 @@ _meteor-mailchimp_ also exposes one template you can use out of the box: `MailCh
 
 ## Installation
 
-Install using [Meteorite](https://github.com/oortcloud/meteorite) - Installer & smart package manager for Meteor:
+Install using Meteor:
 
 ```sh
-$ mrt add mailchimp
+$ meteor add miro:mailchimp
 ```
 
 Use in your template:
@@ -42,9 +42,11 @@ Put in your server's settings.json:
 
 ```javascript
 {
-	"MailChimpOptions": {
-		"apiKey": "<Your MailChimp API Key>",
-		"listId": "<ID of your default mailing list>"
+	"public": {
+		"MailChimp": {
+			"apiKey": "<Your MailChimp API Key>",
+			"listId": "<ID of your default mailing list>"
+		}
 	}
 }
 ```
@@ -53,11 +55,6 @@ and start your server with:
 
 ```sh
 meteor --settings settings.json
-```
-or
-
-```sh
-mrt --settings settings.json
 ```
 
 ## Usage
@@ -78,9 +75,9 @@ Example:
 ```javascript
 try {
 	// You can as well pass different parameters on each call
-	var mailchimp = new MailChimp( /* apiKey, { version : '2.0' } */ );
+	var mailChimp = new MailChimp( /* apiKey, { version : '2.0' } */ );
 
-	mailchimp.call(
+	mailChimp.call(
 		'campaigns',
 		'list',
 		{
@@ -89,14 +86,14 @@ try {
 		},
 		function ( error, result ) {
 			if ( error ) {
-				console.log( error.message );
+				console.error( '[MailChimp][Campaigns][List] Error: %o', error );
 			} else {
-				console.log( JSON.stringify( result ) ); // Do something with your data!
+				console.info( '[MailChimp][Campaigns][List]: %o', result ); // Do something with your data!
 			}
 		}
 	);
 
-	mailchimp.call(
+	mailChimp.call(
 		'campaigns',
 		'template-content',
 		{
@@ -104,18 +101,23 @@ try {
 		},
 		function ( error, result ) {
 			if ( error ) {
-				console.log( error.message );
+				console.error( '[MailChimp][Campaigns][template-content] Error: %o', error );
 			} else {
-				console.log( JSON.stringify( result ) ); // Do something with your data!
+				console.info( '[MailChimp][Campaigns][template-content]: %o', result ); // Do something with your data!
 			}
 		}
 	);
 } catch ( error ) {
-	console.log( error.message );
+	console.error( '[MailChimp] Error: %o', error );
 }
 ```
 
 ## Changelog
+
+### v1.0.0
+ * Update to Meteor v1.0
+ * Bug fixes
+ * Cleanup
 
 ### v0.4.2
  * Fixed typo in README.md
@@ -141,5 +143,3 @@ try {
 Copyright © 2014 [Miroslav Hibler](http://miro.hibler.me)
 
 _meteor-mailchimp_ is licensed under the [**MIT**](http://miro.mit-license.org) license.
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/MiroHibler/meteor-mailchimp/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
