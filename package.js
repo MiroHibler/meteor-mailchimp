@@ -1,6 +1,6 @@
 Package.describe({
 	name    : 'miro:mailchimp',
-	version : '1.0.0',
+	version : '1.0.2',
 	summary : 'A Meteor wrapper for MailChimp API',
 	homepage: "http://mailchimp.meteor.com",
 	author  : "Miroslav Hibler (http://miro.hibler.me)",

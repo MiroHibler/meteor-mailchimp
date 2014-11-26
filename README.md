@@ -114,6 +114,9 @@ try {
 
 ## Changelog
 
+### v1.0.2
+ * Bumped version number
+
 ### v1.0.1
  * README.md fix
 
