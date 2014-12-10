@@ -114,6 +114,10 @@ try {
 
 ## Changelog
 
+### v1.0.3
+ * Fixed bug with `Meteor.wrapAsync` not returning real error (#16)
+ * Fixed bug with `audit-argument-checks` package throwing 'Did not check()' error (#15)
+
 ### v1.0.2
  * Bumped version number
 
