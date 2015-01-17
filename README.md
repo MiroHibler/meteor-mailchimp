@@ -1,25 +1,29 @@
-# meteor-mailchimp
+# miro:mailchimp
 
 A Meteor wrapper for the MailChimp API.
+
+See also these wrappers:
+
+ * [MailChimp Lists](https://github.com/MiroHibler/meteor-mailchimp-lists)
+ * [MailChimp Campaigns](https://github.com/MiroHibler/meteor-mailchimp-campaigns)
 
 
 ## Dependencies
 
- * [node-mailchimp](https://github.com/gomfunkel/node-mailchimp) - A node.js wrapper for the MailChimp API
+ * [node-mailchimp](https://github.com/gomfunkel/node-mailchimp) - A node.js
+wrapper for the MailChimp API
 
 
 ## TL;DR;
 
-_meteor-mailchimp_ exposes the following features of the MailChimp API to your Meteor application:
-
- * MailChimp API v2.0
-
-Further information on the MailChimp API and its features is available at [https://github.com/gomfunkel/node-mailchimp](https://github.com/gomfunkel/node-mailchimp).
+_miro:mailchimp_ exposes [MailChimp API v2.0](http://apidocs.mailchimp.com/api/2.0) features to your Meteor application.
 
 
 ## Templates
 
-_meteor-mailchimp_ also exposes one template you can use out of the box: `MailChimpListSubscribe`, which you can use to enable your visitors to subscribe to your mailing list(s).
+_miro:mailchimp_ also provides one template you can use out of the box:
+`{{> MailChimpListSubscribe}}`, which you can use to enable your visitors to subscribe
+to your mailing list(s).
 
 
 ## Installation
@@ -27,8 +31,10 @@ _meteor-mailchimp_ also exposes one template you can use out of the box: `MailCh
 Install using Meteor:
 
 ```sh
-$ meteor add miro:mailchimp
+meteor add miro:mailchimp
 ```
+
+## Quick Start
 
 Use in your template:
 
@@ -57,62 +63,77 @@ and start your server with:
 meteor --settings settings.json
 ```
 
-## Usage
+## API
 
-_MailChimp_ takes two arguments. The first argument is your API key, which you can find in your MailChimp Account. The second argument is an options object which can contain the following option:
+_MailChimp_ takes two arguments. The first argument is your API key, which you
+can find in your MailChimp Account. The second argument is an options object
+which can contain the following option:
 
  * `version` The API version to use. Defaults to 2.0.
 
-All of the API categories and methods described in the MailChimp API v2.0 Documentation ([http://apidocs.mailchimp.com/api/2.0](http://apidocs.mailchimp.com/api/2.0)) are available in this wrapper **both on the server and the client**. To use them the method `call` is used which takes four parameters:
+All of the API categories and methods described in the [MailChimp API v2.0
+Documentation](http://apidocs.mailchimp.com/api/2.0) are available in this
+wrapper **both server- and client-side**.
+
+To use them, the method `call` is used which takes four parameters:
 
  * `section` The section of the API method to call (e.g. 'campaigns').
  * `method` The method to call in the given section.
  * `params` Parameters to pass to the API method.
- * `callback` Callback function for returned data or errors with two parameters. The first one being an error object which is null when no error occured, the second one an object with all information retrieved as long as no error occured.
+ * `callback` (_optional server-side, required client-side_) Callback function for
+returned data or errors with two parameters. The first one being an error object
+which is null when no error occured, the second one an object with all
+information retrieved as long as no error occured.
 
-Example:
+> **_NOTE:_** If `callback` is ommited server-side, the method runs
+"[synchronously](https://www.discovermeteor.com/blog/wrapping-npm-packages/)" via `Meteor.wrapAsync` method.
+
+
+## Examples
+
+### Callback, server-side/client-side
 
 ```javascript
-try {
-	// You can as well pass different parameters on each call
-	var mailChimp = new MailChimp( /* apiKey, { version: '2.0' } */ );
+// You can as well pass different parameters on each call
+var mailChimp = new MailChimp( /* apiKey, { version: '2.0' } */ );
 
-	mailChimp.call(
-		'campaigns',
-		'list',
-		{
-			start: 0,
-			limit: 25
-		},
-		function ( error, result ) {
-			if ( error ) {
-				console.error( '[MailChimp][Campaigns][List] Error: %o', error );
-			} else {
-				console.info( '[MailChimp][Campaigns][List]: %o', result ); // Do something with your data!
-			}
+mailChimp.call( 'campaigns', 'list', {
+		start: 0,
+		limit: 25
+	},
+	// Callback beauty in action
+	function ( error, result ) {
+		if ( error ) {
+			console.error( '[MailChimp][Campaigns][List] Error: %o', error );
+		} else {
+			// Do something with your data!
+			console.info( '[MailChimp][Campaigns][List]: %o', result );
 		}
-	);
+	}
+);
+```
 
-	mailChimp.call(
-		'campaigns',
-		'template-content',
-		{
-			cid: '/* CAMPAIGN ID */'
-		},
-		function ( error, result ) {
-			if ( error ) {
-				console.error( '[MailChimp][Campaigns][template-content] Error: %o', error );
-			} else {
-				console.info( '[MailChimp][Campaigns][template-content]: %o', result ); // Do something with your data!
-			}
-		}
-	);
-} catch ( error ) {
-	console.error( '[MailChimp] Error: %o', error );
-}
+### wrapAsync, server-side ONLY
+
+```javascript
+// You can as well pass different parameters on each call
+var mailChimp = new MailChimp( /* apiKey, { version: '2.0' } */ );
+
+var result = mailChimp.call( 'campaigns', 'list', {
+	start: 0,
+	limit: 25
+});
+
+// Do something with your data!
+console.info( '[MailChimp][Campaigns][List]: %o', result );
 ```
 
 ## Changelog
+
+### v1.0.4
+ * Reinstated server-side callback in case someone still wants to use it instead
+of `Meteor.wrapAsync` method (#19)
+ * Updated documentation (README.md)
 
 ### v1.0.3
  * Fixed bug with `Meteor.wrapAsync` not returning real error (#16)
@@ -150,6 +171,6 @@ try {
 
 ## Copyright and license
 
-Copyright © 2014 [Miroslav Hibler](http://miro.hibler.me)
+Copyright © 2014-1015 [Miroslav Hibler](http://miro.hibler.me)
 
-_meteor-mailchimp_ is licensed under the [**MIT**](http://miro.mit-license.org) license.
+_miro:mailchimp_ is licensed under the [**MIT**](http://miro.mit-license.org) license.
