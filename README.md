@@ -16,14 +16,8 @@ wrapper for the MailChimp API
 
 ## TL;DR;
 
-_miro:mailchimp_ exposes [MailChimp API v2.0](http://apidocs.mailchimp.com/api/2.0) features to your Meteor application.
-
-
-## Templates
-
-_miro:mailchimp_ also provides one template you can use out of the box:
-`{{> MailChimpListSubscribe}}`, which you can use to enable your visitors to subscribe
-to your mailing list(s).
+_miro:mailchimp_ provides [MailChimp API v2.0](http://apidocs.mailchimp.com/api/2.0)
+(**v3.0 not ready yet!**) features to your Meteor application.
 
 
 ## Installation
@@ -36,7 +30,32 @@ meteor add miro:mailchimp
 
 ## Quick Start
 
-Use in your template:
+> **NOTE:** starting with v1.1.0 the template `MailChimpListSubscribe` is NOT
+> included in the package anymore BUT the template helpers and event handlers ARE!
+> In other words, you can copy the old template from the example folder within
+> the package or copy it from here,...
+
+```html
+<!-- Bootstrap example -->
+<template name="MailChimpListSubscribe">
+	<form class="form-inline">
+	{{#if message}}
+		<p class="mailchimp-message">{{{message}}}</p>
+	{{/if}}
+		<div class="form-group">
+			<input class="mailchimp-email form-control" type="email" placeholder="email@example.com"/>
+			<button class="mailchimp-subscribe btn btn-success" type="button">Subscribe</button>
+		</div>
+	</form>
+</template>
+```
+
+> ...include it in your code and customize it as you wish; it will be
+> inherently functional as long as its name remains `MailChimpListSubscribe` and
+> it contains all template expressions and CSS classes (apart from bootstrap ones,
+> of course) as the original example has.
+
+Include it in some other template as needed:
 
 ```html
 <div id="subscribeForm">
@@ -44,7 +63,7 @@ Use in your template:
 </div>
 ```
 
-Put in your server's settings.json:
+Finally, put in your server's settings.json:
 
 ```javascript
 {
@@ -60,7 +79,7 @@ Put in your server's settings.json:
 and start your server with:
 
 ```sh
-meteor --settings settings.json
+meteor --settings=settings.json
 ```
 
 ## API
@@ -129,6 +148,10 @@ console.info( '[MailChimp][Campaigns][List]: %o', result );
 ```
 
 ## Changelog
+
+### v1.1.0
+ * Removed subscribe template (moved to example folder) so it can be customized
+ * Some bug fixes
 
 ### v1.0.4
  * Reinstated server-side callback in case someone still wants to use it instead
