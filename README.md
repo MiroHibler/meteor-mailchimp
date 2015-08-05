@@ -44,7 +44,7 @@ meteor add miro:mailchimp
 	{{/if}}
 		<div class="form-group">
 			<input class="mailchimp-email form-control" type="email" placeholder="email@example.com"/>
-			<button class="mailchimp-subscribe btn btn-success" type="button">Subscribe</button>
+			<input type="submit" value="Subscribe" class="mailchimp-subscribe btn btn-success" />
 		</div>
 	</form>
 </template>
